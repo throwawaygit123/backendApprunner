@@ -13,7 +13,7 @@ public class PatientNotFoundException extends RuntimeException  {
 
 	public PatientNotFoundException(long patientId) {
 		// TODO Auto-generated constructor stub
-		super("Could not find patient " + patientId);
+		super("Could not find object " + patientId);
 	}
 }
 

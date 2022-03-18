@@ -1,5 +1,7 @@
 package com.quanbio.hospital;
 
-public interface HospitalRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface HospitalRepository extends JpaRepository<Hospital, Long> {
 
 }

@@ -52,13 +52,18 @@ public class RawData  {
 	@Column(name ="microcirculation")
 	private int microcirculation;
 	
+	@ManyToOne
+	@JoinColumn(name = "device_id")
+    private Device device;
+	
 //	This is the first block mentioned as (**)
 //	@ManyToOne
 //    @JoinColumn(name = "device_id")
 //    private Device device;
 	
-	@ManyToOne
-    private Device device;
+//	@ManyToOne
+//	@JoinColumn(name = "device_id")
+//    private Device device;
 	
 	
 	

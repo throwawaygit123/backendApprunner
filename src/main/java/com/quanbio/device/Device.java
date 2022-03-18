@@ -40,6 +40,9 @@ public class Device {
 	@Column(name ="port_number")
 	private String portNumber; 
 	
+	@OneToMany(mappedBy = "device")
+	private List<RawData> rawData;
+	
 // This case if fore bidirectional mapping 	
 // it works with the first bloc in RawData mentioned as (**)
 //	@OneToMany(mappedBy = "device", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -54,8 +57,8 @@ public class Device {
 //    @JoinColumn(name = "device_id")
 //    private List<RawData> rawData;
 	
-	@OneToMany
-	private List<RawData> rawData;
+//	@OneToMany(mappedBy = "device")
+//	private List<RawData> rawData;
 	
 	
 	
