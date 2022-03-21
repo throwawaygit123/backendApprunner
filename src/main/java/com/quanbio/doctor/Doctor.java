@@ -1,15 +1,19 @@
 package com.quanbio.doctor;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.quanbio.hospital.Hospital;
+import com.quanbio.patient.Patient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,5 +42,7 @@ public class Doctor {
 	@JoinColumn(name = "hospital_id")
 	private Hospital hospital;
 	
+	@ManyToMany
+	private List<Patient> patient;
 
 }

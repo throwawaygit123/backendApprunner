@@ -1,6 +1,9 @@
 package com.quanbio.rawData;
 
 
+import com.quanbio.parameter.Parameter;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,13 +19,14 @@ import javax.persistence.Table;
 
 
 import com.quanbio.device.Device;
+import com.quanbio.patient.Patient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity 
-@Table(name = "RawData") 
+@Table(name = "raw_data") 
 
 @Data
 @AllArgsConstructor
@@ -55,6 +59,13 @@ public class RawData  {
 	@ManyToOne
 	@JoinColumn(name = "device_id")
     private Device device;
+	
+	@OneToOne
+	@JoinColumn(name = "patient_id", unique=true)
+	private Patient patient; 
+	
+	@OneToMany(mappedBy = "rawdata")
+	private List<Parameter> parameter; 
 	
 //	This is the first block mentioned as (**)
 //	@ManyToOne

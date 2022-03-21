@@ -23,49 +23,50 @@ import com.quanbio.device.Device;
 @CrossOrigin
 
 @RestController 
-@RequestMapping("/api/signals")
+@RequestMapping("/api/rawdata")
 public class RawDataController {
 	
 	@Autowired 
-	private RawDataRepository signalRepository  ;
+	private RawDataRepository rawDataRepository  ;
 	
 	//GET: get all users 
 		@GetMapping
-		public List<RawData> getAllSignals() {
-			return this.signalRepository.findAll();
+		public List<RawData> getAllRawData() {
+			return this.rawDataRepository.findAll();
 		} 
 		
 	// GET(ID): get one user 
 		@GetMapping("/{id}")
-		public RawData getSignalById(@PathVariable (value = "id") long signalId) {
-			return this.signalRepository.findById(signalId)
-					.orElseThrow(() -> new PatientNotFoundException(signalId));
+		public RawData getRawDataById(@PathVariable (value = "id") long rawdataId) {
+			return this.rawDataRepository.findById(rawdataId)
+					.orElseThrow(() -> new PatientNotFoundException(rawdataId));
 		}
 		
 	// POST: add a new user 
 		@PostMapping
-		public RawData createSignal(@RequestBody RawData signal) {
-			return this.signalRepository.save(signal);
+		public RawData createRawData(@RequestBody RawData rawdata) {
+			return this.rawDataRepository.save(rawdata);
 		}
 	
 	// update: do it later :D 
 	// Have just added update device 
+	// Maybe need to add updated patient later 
 		@PutMapping("/{id}")
 		public RawData updateDevice(@RequestBody RawData rawdata, @PathVariable ("id") long rawdataId) {
-			RawData existingRawData = this.signalRepository.findById(rawdataId)
+			RawData existingRawData = this.rawDataRepository.findById(rawdataId)
 					.orElseThrow(() -> new PatientNotFoundException(rawdataId));
 			//existingDevice.setId(device.getId());
 			existingRawData.setDevice(rawdata.getDevice());
 							
-			return this.signalRepository.save(existingRawData);
+			return this.rawDataRepository.save(existingRawData);
 		}
 		
 	// DELETE: remove a user 
 		@DeleteMapping("/{id}")
-		public ResponseEntity<RawData> deleteSignal(@PathVariable ("id") long signalId){
-			RawData existingSignal = this.signalRepository.findById(signalId)
-					.orElseThrow(() -> new PatientNotFoundException(signalId));
-			 this.signalRepository.delete(existingSignal);
+		public ResponseEntity<RawData> deleteRawData(@PathVariable ("id") long rawdataId){
+			RawData existingRawData = this.rawDataRepository.findById(rawdataId)
+					.orElseThrow(() -> new PatientNotFoundException(rawdataId));
+			 this.rawDataRepository.delete(existingRawData);
 			 return ResponseEntity.ok().build();
 		}
 

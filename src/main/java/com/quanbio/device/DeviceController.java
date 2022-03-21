@@ -62,7 +62,7 @@ public class DeviceController {
 	}
 	
 			
-	// DELETE: remove a user 
+	// DELETE: remove a device 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Device> deleteDevice(@PathVariable ("id") long deviceId){
 		Device existingDevice = this.deviceRepository.findById(deviceId)
