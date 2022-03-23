@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.quanbio.biodata.BioData;
 import com.quanbio.doctor.Doctor;
 import com.quanbio.medicalhistory.MedicalHistory;
@@ -31,8 +33,9 @@ import lombok.NoArgsConstructor;
 
 public class Patient {
 	
-@Id	
-//@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Id	 
+@GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+@GenericGenerator(name = "native", strategy = "native")
 private long id; 
 
 @Column(name ="family_name")

@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.quanbio.patient.Patient;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +25,8 @@ import lombok.NoArgsConstructor;
 public class BioData {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+	@GenericGenerator(name = "native", strategy = "native")
 	private Long id; 
 	
 	private String type; 

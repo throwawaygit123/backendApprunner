@@ -5,10 +5,11 @@ import com.quanbio.parameter.Parameter;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+import org.hibernate.annotations.GenericGenerator;
 
 import com.quanbio.device.Device;
 import com.quanbio.patient.Patient;
@@ -34,27 +35,32 @@ import lombok.NoArgsConstructor;
 
 public class RawData  {
 	@Id	
-	@GeneratedValue
-	@Column(name ="id_data")
-	private long id_data; 
+	@GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+	@GenericGenerator(name = "native", strategy = "native")
+	private long id; 
 	
 	@Column(name ="ppg_signal")
 	private int[] ppgSignal;
 	
+	// Need to change type to int[]
 	@Column(name ="heart_rate")
-	private int heatRate; 
+	private int[] heatRate; 
 	
+	// Need to change type to int[]
 	@Column(name ="systolic_blood_pressure")
-	private int systolicBP;
+	private int[] systolicBP;
 	
+	// Need to change type to int[]
 	@Column(name ="diastolic_blood_pressure")
-	private int diastolicBP;
+	private int[] diastolicBP;
 	
+	// Need to change type to int[]
 	@Column(name ="blood_oxygen_saturation")
-	private int spo2;
+	private int[] spo2;
 	
+	// Need to change type to int[]
 	@Column(name ="microcirculation")
-	private int microcirculation;
+	private int[] microcirculation;
 	
 	@ManyToOne
 	@JoinColumn(name = "device_id")

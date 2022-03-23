@@ -19,7 +19,7 @@ import com.quanbio.config.PatientNotFoundException;
 @CrossOrigin
 @RestController 
 @RequestMapping("/api/parameter")
-public class ParameetrController {
+public class ParameterController {
 	
 	@Autowired 
 	private ParameterRepository parameterRepository;

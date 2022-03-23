@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.quanbio.hospital.Hospital;
 import com.quanbio.patient.Patient;
 
@@ -29,7 +31,8 @@ import lombok.NoArgsConstructor;
 public class Doctor {
 	
 	@Id	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+	@GenericGenerator(name = "native", strategy = "native")
 	private long id; 
 	
 	@Column(name ="doctor_name")

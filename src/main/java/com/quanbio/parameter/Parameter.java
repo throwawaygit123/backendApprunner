@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.quanbio.rawData.RawData;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +24,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Parameter {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+	@GenericGenerator(name = "native", strategy = "native")
 	private Long id;
 	
 	private String paramName; 
@@ -46,7 +49,7 @@ public class Parameter {
 	private String category; 
 	
 	@ManyToOne
-	@JoinColumn(name = "device_id")
+	@JoinColumn(name = "rawdata_id")
 	private RawData rawdata; 
 	
 

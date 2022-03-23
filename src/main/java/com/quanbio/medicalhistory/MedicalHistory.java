@@ -10,6 +10,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.quanbio.patient.Patient;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +27,8 @@ import lombok.NoArgsConstructor;
 
 public class MedicalHistory {
 	@Id	
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+	@GenericGenerator(name = "native", strategy = "native")
 	private long id; 
 	
 	@Column(name ="diabete_mellitus")
