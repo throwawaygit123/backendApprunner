@@ -49,17 +49,19 @@ public class RawDataController {
 		}
 	
 	// update: do it later :D 
-	// Have just added update device 
-	// Maybe need to add updated patient later 
-		@PutMapping("/{id}")
-		public RawData updateDevice(@RequestBody RawData rawdata, @PathVariable ("id") long rawdataId) {
-			RawData existingRawData = this.rawDataRepository.findById(rawdataId)
-					.orElseThrow(() -> new PatientNotFoundException(rawdataId));
-			//existingDevice.setId(device.getId());
-			existingRawData.setDevice(rawdata.getDevice());
-							
-			return this.rawDataRepository.save(existingRawData);
-		}
+//	// Have just added update device 
+//	// Maybe need to add updated patient later 
+//		@PutMapping("/{id}")
+//		public RawData updateDevice(@RequestBody RawData rawdata, @PathVariable ("id") long rawdataId) {
+//			RawData existingRawData = this.rawDataRepository.findById(rawdataId)
+//					.orElseThrow(() -> new PatientNotFoundException(rawdataId));
+//			
+//			existingRawData.setPpgSignal(rawdata.getPpgSignal());
+//		
+//							
+//			return this.rawDataRepository.save(existingRawData);
+//		}
+		
 		
 	// DELETE: remove a user 
 		@DeleteMapping("/{id}")
