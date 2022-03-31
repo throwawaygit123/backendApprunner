@@ -2,8 +2,10 @@ package com.quanbio.rawData;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quanbio.config.PatientNotFoundException;
-import com.quanbio.device.Device;
+
 
 
 
@@ -28,6 +30,11 @@ public class RawDataController {
 	
 	@Autowired 
 	private RawDataRepository rawDataRepository  ;
+	
+	//@Autowired // This Autowired is not working 
+	// Cannot use a direct constructor 
+	// Later improve it  
+	private RawService service=new RawService() ;
 	
 	//GET: get all users 
 		@GetMapping
@@ -46,6 +53,12 @@ public class RawDataController {
 		@PostMapping
 		public RawData createRawData(@RequestBody RawData rawdata) {
 			return this.rawDataRepository.save(rawdata);
+		}
+		
+	// Another Post to call Python 
+		@PostMapping("/python")
+		public SecondDerivative callPythonn(@RequestBody RawData rawdata) {
+			return this.service.callAPIPython(rawdata);
 		}
 	
 	// update: do it later :D 
