@@ -34,7 +34,10 @@ public class RawDataController {
 	//@Autowired // This Autowired is not working 
 	// Cannot use a direct constructor 
 	// Later improve it  
-	private RawService service=new RawService() ;
+//	private RawService service=new RawService() ;
+	
+	@Autowired  
+	private RawService service;
 	
 	//GET: get all users 
 		@GetMapping

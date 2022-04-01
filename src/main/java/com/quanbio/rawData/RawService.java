@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate; 
 
-
+@Service 
 public class RawService {
 	
-	//@Autowired
+	//@Autowired // Autowired 
 	// Cannot use a direct constructor 
-	// Later imporve it 
-	private RestTemplate template=new RestTemplate();
+	// Later improve it 
+	//private RestTemplate template=new RestTemplate();
+	
+	@Autowired
+	private RestTemplate template;
 	
 	public SecondDerivative callAPIPython(RawData raw) 
 	{
