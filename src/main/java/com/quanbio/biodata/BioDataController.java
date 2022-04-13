@@ -1,6 +1,7 @@
 package com.quanbio.biodata;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quanbio.config.PatientNotFoundException;
+
+import com.quanbio.exceptionHandler.RecordNotFoundException;
 
 
 
@@ -33,11 +35,32 @@ public class BioDataController {
 		
 
 	// GET(ID): get one BioData 
+	// Original get by ID 
 	@GetMapping("/{id}")
 	public BioData getBioDataById(@PathVariable (value = "id") long biodataId) {
+		
 		return this.biodataRepository.findById(biodataId)
-			.orElseThrow(() -> new PatientNotFoundException(biodataId));
+			.orElseThrow(() -> new RecordNotFoundException("BioData id '" + biodataId + "' does not exist"));
 	}
+	
+//	// GET(ID): get one BioData 
+	// Get by ID with null on the attributes that loop 
+//		@GetMapping("/{id}")
+//		public BioData getBioDataByIdNull(@PathVariable (value = "id") long biodataId) {
+//			Optional<BioData> bio = this.biodataRepository.findById(biodataId);
+//			if (bio.isEmpty())  
+//			{
+//				throw new RecordNotFoundException("BioData id '" + biodataId + "' does not exist");
+//			}
+//			else 
+//			{
+//				// Put Null on the bidirectional relations 
+//				BioData bioWithNull = bio.get(); 
+//				bioWithNull.setPatient(null);
+//				return bioWithNull;
+//			}
+//				
+//		}
 	
 
 	// POST: add a new BioData 
@@ -52,7 +75,7 @@ public class BioDataController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<BioData> deleteBioData(@PathVariable ("id") long biodataId){
 		BioData existingBioData = this.biodataRepository.findById(biodataId)
-				.orElseThrow(() -> new PatientNotFoundException(biodataId));
+				.orElseThrow(() -> new RecordNotFoundException("BioData id '" + biodataId + "' does not exist"));
 		this.biodataRepository.delete(existingBioData);
 		return ResponseEntity.ok().build();
 	}

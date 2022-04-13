@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quanbio.config.PatientNotFoundException;
 import com.quanbio.device.Device;
+import com.quanbio.exceptionHandler.RecordNotFoundException;
 
 
 
@@ -40,7 +40,7 @@ public class HospitalController {
 	@GetMapping("/{id}")
 	public Hospital getHospitalById(@PathVariable (value = "id") long hospitalId) {
 		return this.hospitalRepository.findById(hospitalId)
-				.orElseThrow(() -> new PatientNotFoundException(hospitalId));
+				.orElseThrow(() -> new RecordNotFoundException("Hospital id '" + hospitalId + "' does no exist"));
 	}
 	
 	
@@ -56,7 +56,7 @@ public class HospitalController {
 	@PutMapping("/{id}")
 	public Hospital updateHospital(@RequestBody Hospital hospital, @PathVariable ("id") long hospitalId) {
 		Hospital existingHospital = this.hospitalRepository.findById(hospitalId)
-				.orElseThrow(() -> new PatientNotFoundException(hospitalId));
+				.orElseThrow(() -> new RecordNotFoundException("Hospital id '" + hospitalId + "' does no exist"));
 	
 		existingHospital.setHospitalName(hospital.getHospitalName());
 	
@@ -68,7 +68,7 @@ public class HospitalController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Hospital> deleteHospital(@PathVariable ("id") long hospitalId){
 		Hospital existingHospital = this.hospitalRepository.findById(hospitalId)
-				.orElseThrow(() -> new PatientNotFoundException(hospitalId));
+				.orElseThrow(() -> new RecordNotFoundException("Hospital id '" + hospitalId + "' does no exist"));
 		this.hospitalRepository.delete(existingHospital);
 		return ResponseEntity.ok().build();
 	}

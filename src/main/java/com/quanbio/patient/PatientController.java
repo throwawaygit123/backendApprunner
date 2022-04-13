@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.quanbio.config.PatientNotFoundException;
+import com.quanbio.exceptionHandler.RecordNotFoundException;
 
 @CrossOrigin
 
@@ -29,20 +28,20 @@ public class PatientController {
 	@Autowired 
 	private PatientRepository patientRepository  ;
 	
-	//GET: get all users 
+	//GET: get all patients 
 	@GetMapping
 	public List<Patient> getAllPatients() {
 		return this.patientRepository.findAll();
 	} 
 	
-	// GET(ID): get one user 
+	// GET(ID): get one patient 
 	@GetMapping("/{id}")
 	public Patient getPatientById(@PathVariable (value = "id") long patientId) {
 		return this.patientRepository.findById(patientId)
-				.orElseThrow(() -> new PatientNotFoundException(patientId));
+				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does no exist"));
 	}
 	
-	// POST: add a new user 
+	// POST: add a new patient 
 	@PostMapping
 	public Patient createPatient(@RequestBody Patient patient) {
 		return this.patientRepository.save(patient);
@@ -52,7 +51,7 @@ public class PatientController {
 	@PutMapping("/{id}")
 	public Patient updatePatient(@RequestBody Patient patient, @PathVariable ("id") long patientId) {
 		Patient existingPatient = this.patientRepository.findById(patientId)
-				.orElseThrow(() -> new PatientNotFoundException(patientId));
+				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does no exist"));
 		existingPatient.setFamilyName(patient.getFamilyName());
 		existingPatient.setFirstName(patient.getFirstName());
 		existingPatient.setMiddleName(patient.getMiddleName());
@@ -70,7 +69,7 @@ public class PatientController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Patient> deletePatient(@PathVariable ("id") long patientId){
 		Patient existingPatient = this.patientRepository.findById(patientId)
-				.orElseThrow(() -> new PatientNotFoundException(patientId));
+				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does no exist"));
 		 this.patientRepository.delete(existingPatient);
 		 return ResponseEntity.ok().build();
 	}

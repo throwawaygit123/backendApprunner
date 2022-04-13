@@ -39,7 +39,7 @@ public class RawData  {
 	@GenericGenerator(name = "native", strategy = "native")
 	private long id; 
 	
-	@Column(name ="ppg_signal")
+	@Column(name ="ppg_signal",columnDefinition="BLOB")
 	private int[] ppgSignal;
 	
 	// Need to change type to int[]

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quanbio.config.PatientNotFoundException;
+import com.quanbio.exceptionHandler.RecordNotFoundException;
 
 
 
@@ -39,7 +39,7 @@ public class DeviceController {
 	@GetMapping("/{id}")
 	public Device getDeviceById(@PathVariable (value = "id") long deviceId) {
 		return this.deviceRepository.findById(deviceId)
-			.orElseThrow(() -> new PatientNotFoundException(deviceId));
+			.orElseThrow(() -> new RecordNotFoundException("Device id '" + deviceId + "' does no exist"));
 	}
 	
 	// POST: add a new device 
@@ -53,7 +53,7 @@ public class DeviceController {
 	@PutMapping("/{id}")
 	public Device updateDevice(@RequestBody Device device, @PathVariable ("id") long deviceId) {
 		Device existingDevice = this.deviceRepository.findById(deviceId)
-			.orElseThrow(() -> new PatientNotFoundException(deviceId));
+			.orElseThrow(() -> new RecordNotFoundException("Device id '" + deviceId + "' does no exist"));
 		//existingDevice.setId(device.getId());
 		existingDevice.setDeviceName(device.getDeviceName());
 		existingDevice.setPortNumber(device.getPortNumber());
@@ -66,7 +66,7 @@ public class DeviceController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Device> deleteDevice(@PathVariable ("id") long deviceId){
 		Device existingDevice = this.deviceRepository.findById(deviceId)
-				.orElseThrow(() -> new PatientNotFoundException(deviceId));
+				.orElseThrow(() -> new RecordNotFoundException("Device id '" + deviceId + "' does no exist"));
 		this.deviceRepository.delete(existingDevice);
 		return ResponseEntity.ok().build();
 	}

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quanbio.config.PatientNotFoundException;
+import com.quanbio.exceptionHandler.RecordNotFoundException;
 
 
 @CrossOrigin
@@ -34,7 +34,7 @@ public class ParameterController {
 	@GetMapping("/{id}")
 	public Parameter getParameterById(@PathVariable (value = "id") long parameterId) {
 		return this.parameterRepository.findById(parameterId)
-				.orElseThrow(() -> new PatientNotFoundException(parameterId));
+				.orElseThrow(() -> new RecordNotFoundException("Parameter id '" + parameterId + "' does no exist"));
 	}
 	 
 	// POST: add a new parameter
@@ -49,7 +49,7 @@ public class ParameterController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Parameter> deleteParameter(@PathVariable ("id") long parameterId){
 		Parameter existingParameter = this.parameterRepository.findById(parameterId)
-				.orElseThrow(() -> new PatientNotFoundException(parameterId));
+				.orElseThrow(() -> new RecordNotFoundException("Parameter id '" + parameterId + "' does no exist"));
 		this.parameterRepository.delete(existingParameter);
 		return ResponseEntity.ok().build();
 				

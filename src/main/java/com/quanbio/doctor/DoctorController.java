@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quanbio.config.PatientNotFoundException;
+import com.quanbio.exceptionHandler.RecordNotFoundException;
 
 
 @CrossOrigin
@@ -36,7 +36,7 @@ public class DoctorController {
 	@GetMapping("/{id}")
 	public Doctor getDoctorById(@PathVariable (value = "id") long doctorId) {
 		return this.doctorRepository.findById(doctorId)
-				.orElseThrow(() -> new PatientNotFoundException(doctorId));
+				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does no exist"));
 	}
 	
 	// POST: add a new doctor
@@ -51,7 +51,7 @@ public class DoctorController {
 	@PutMapping("/{id}")
 	public Doctor updateDoctor(@RequestBody Doctor doctor, @PathVariable ("id") long doctorId) {
 		Doctor existingDoctor = this.doctorRepository.findById(doctorId)
-				.orElseThrow(() -> new PatientNotFoundException(doctorId));
+				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does no exist"));
 		
 		existingDoctor.setDoctorName(doctor.getDoctorName());
 		existingDoctor.setDepatment(doctor.getDepatment());
@@ -63,7 +63,7 @@ public class DoctorController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Doctor> deleteDoctor(@PathVariable ("id") long doctorId){
 		Doctor existingDoctor = this.doctorRepository.findById(doctorId)
-				.orElseThrow(() -> new PatientNotFoundException(doctorId));
+				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does no exist"));
 		this.doctorRepository.delete(existingDoctor);
 		return ResponseEntity.ok().build();
 				

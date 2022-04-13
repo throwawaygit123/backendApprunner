@@ -1,5 +1,6 @@
 package com.quanbio.rawData;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 
@@ -16,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quanbio.config.PatientNotFoundException;
-
-
-
+import com.quanbio.exceptionHandler.RecordNotFoundException;
 
 
 @CrossOrigin
@@ -49,14 +47,28 @@ public class RawDataController {
 		@GetMapping("/{id}")
 		public RawData getRawDataById(@PathVariable (value = "id") long rawdataId) {
 			return this.rawDataRepository.findById(rawdataId)
-					.orElseThrow(() -> new PatientNotFoundException(rawdataId));
+					.orElseThrow(() -> new RecordNotFoundException("Raw Data id '" + rawdataId + "' does no exist"));
 		}
 		
-	// POST: add a new user 
-		@PostMapping
-		public RawData createRawData(@RequestBody RawData rawdata) {
-			return this.rawDataRepository.save(rawdata);
-		}
+//	// POST: add a new user 
+//	// original post
+//		@PostMapping
+//		public RawData createRawData(@RequestBody RawData rawdata) {
+//			return this.rawDataRepository.save(rawdata);
+//		}
+		
+		// POST: add a new user 
+		// post with patient ID unique 
+			@PostMapping
+			public RawData createRawData(@RequestBody RawData rawdata) throws SQLIntegrityConstraintViolationException {
+				
+				if (this.rawDataRepository.existsByPatientId(rawdata.getPatient().getId()))
+					{
+						throw new java.sql.SQLIntegrityConstraintViolationException("The patient with ID = "+ rawdata.getPatient().getId() +" already have an associated RawData stored in the database");
+					}
+			
+				return this.rawDataRepository.save(rawdata);
+			}
 		
 	// Another Post to call Python 
 		@PostMapping("/python")
@@ -80,12 +92,23 @@ public class RawDataController {
 		
 		
 	// DELETE: remove a user 
+	// Original delete 
 		@DeleteMapping("/{id}")
 		public ResponseEntity<RawData> deleteRawData(@PathVariable ("id") long rawdataId){
 			RawData existingRawData = this.rawDataRepository.findById(rawdataId)
-					.orElseThrow(() -> new PatientNotFoundException(rawdataId));
+					.orElseThrow(() -> new RecordNotFoundException("Raw Data id '" + rawdataId + "' does not exist"));
 			 this.rawDataRepository.delete(existingRawData);
 			 return ResponseEntity.ok().build();
 		}
+		
+		// DELETE: remove a user 
+		// delete RawData by patient ID 
+		 @DeleteMapping("deleteByPI/{id}")
+		 public ResponseEntity<RawData> deleteRawDataByPatientID(@PathVariable ("id") long patientId){
+				RawData existingRawData = this.rawDataRepository.findByPatientId(patientId)
+					 .orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does not exist"));
+					 this.rawDataRepository.delete(existingRawData);
+					 return ResponseEntity.ok().build();
+				}
 
 }
