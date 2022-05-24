@@ -38,7 +38,7 @@ public class PatientController {
 	@GetMapping("/{id}")
 	public Patient getPatientById(@PathVariable (value = "id") long patientId) {
 		return this.patientRepository.findById(patientId)
-				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does not exist"));
 	}
 	
 	// POST: add a new patient 
@@ -51,7 +51,7 @@ public class PatientController {
 	@PutMapping("/{id}")
 	public Patient updatePatient(@RequestBody Patient patient, @PathVariable ("id") long patientId) {
 		Patient existingPatient = this.patientRepository.findById(patientId)
-				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does not exist"));
 		existingPatient.setFamilyName(patient.getFamilyName());
 		existingPatient.setFirstName(patient.getFirstName());
 		existingPatient.setMiddleName(patient.getMiddleName());
@@ -69,7 +69,7 @@ public class PatientController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Patient> deletePatient(@PathVariable ("id") long patientId){
 		Patient existingPatient = this.patientRepository.findById(patientId)
-				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Patient id '" + patientId + "' does not exist"));
 		 this.patientRepository.delete(existingPatient);
 		 return ResponseEntity.ok().build();
 	}

@@ -36,7 +36,7 @@ public class DoctorController {
 	@GetMapping("/{id}")
 	public Doctor getDoctorById(@PathVariable (value = "id") long doctorId) {
 		return this.doctorRepository.findById(doctorId)
-				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does not exist"));
 	}
 	
 	// POST: add a new doctor
@@ -51,7 +51,7 @@ public class DoctorController {
 	@PutMapping("/{id}")
 	public Doctor updateDoctor(@RequestBody Doctor doctor, @PathVariable ("id") long doctorId) {
 		Doctor existingDoctor = this.doctorRepository.findById(doctorId)
-				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does not exist"));
 		
 		existingDoctor.setDoctorName(doctor.getDoctorName());
 		existingDoctor.setDepatment(doctor.getDepatment());
@@ -63,7 +63,7 @@ public class DoctorController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Doctor> deleteDoctor(@PathVariable ("id") long doctorId){
 		Doctor existingDoctor = this.doctorRepository.findById(doctorId)
-				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Doctor id '" + doctorId + "' does not exist"));
 		this.doctorRepository.delete(existingDoctor);
 		return ResponseEntity.ok().build();
 				

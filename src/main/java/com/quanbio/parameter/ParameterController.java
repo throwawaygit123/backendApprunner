@@ -34,7 +34,7 @@ public class ParameterController {
 	@GetMapping("/{id}")
 	public Parameter getParameterById(@PathVariable (value = "id") long parameterId) {
 		return this.parameterRepository.findById(parameterId)
-				.orElseThrow(() -> new RecordNotFoundException("Parameter id '" + parameterId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Parameter id '" + parameterId + "' does not exist"));
 	}
 	 
 	// POST: add a new parameter
@@ -49,7 +49,7 @@ public class ParameterController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Parameter> deleteParameter(@PathVariable ("id") long parameterId){
 		Parameter existingParameter = this.parameterRepository.findById(parameterId)
-				.orElseThrow(() -> new RecordNotFoundException("Parameter id '" + parameterId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Parameter id '" + parameterId + "' does not exist"));
 		this.parameterRepository.delete(existingParameter);
 		return ResponseEntity.ok().build();
 				

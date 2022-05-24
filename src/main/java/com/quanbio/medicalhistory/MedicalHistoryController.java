@@ -37,7 +37,7 @@ public class MedicalHistoryController {
 	@GetMapping("/{id}")
 	public MedicalHistory getMedicalHistoryById(@PathVariable (value = "id") long medicalId) {
 		return this.medicalHistoryRepository.findById(medicalId)
-			.orElseThrow(() -> new RecordNotFoundException("Medical History id '" + medicalId + "' does no exist"));
+			.orElseThrow(() -> new RecordNotFoundException("Medical History id '" + medicalId + "' does not exist"));
 	}
 	
 	
@@ -53,7 +53,7 @@ public class MedicalHistoryController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<MedicalHistory> deleteMedicalHistory(@PathVariable ("id") long medicalId){
 		MedicalHistory existingMedicalHistory = this.medicalHistoryRepository.findById(medicalId)
-				.orElseThrow(() -> new RecordNotFoundException("Medical History id '" + medicalId + "' does no exist"));
+				.orElseThrow(() -> new RecordNotFoundException("Medical History id '" + medicalId + "' does not exist"));
 		this.medicalHistoryRepository.delete(existingMedicalHistory);
 		return ResponseEntity.ok().build();
 	}

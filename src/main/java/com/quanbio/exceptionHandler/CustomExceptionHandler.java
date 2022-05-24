@@ -60,7 +60,7 @@ private String INCORRECT_REQUEST = "INCORRECT_REQUEST";
   
   
   
- // This solution works but cannot customize the error message 
+ // This solution works 
   // Try to handle an existing exception differently 
   private String CONSTRAINT_VIOLATION = "CONSTRAINT_VIOLATION";
   @ExceptionHandler(java.sql.SQLIntegrityConstraintViolationException.class)

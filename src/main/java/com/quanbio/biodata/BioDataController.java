@@ -43,24 +43,6 @@ public class BioDataController {
 			.orElseThrow(() -> new RecordNotFoundException("BioData id '" + biodataId + "' does not exist"));
 	}
 	
-//	// GET(ID): get one BioData 
-	// Get by ID with null on the attributes that loop 
-//		@GetMapping("/{id}")
-//		public BioData getBioDataByIdNull(@PathVariable (value = "id") long biodataId) {
-//			Optional<BioData> bio = this.biodataRepository.findById(biodataId);
-//			if (bio.isEmpty())  
-//			{
-//				throw new RecordNotFoundException("BioData id '" + biodataId + "' does not exist");
-//			}
-//			else 
-//			{
-//				// Put Null on the bidirectional relations 
-//				BioData bioWithNull = bio.get(); 
-//				bioWithNull.setPatient(null);
-//				return bioWithNull;
-//			}
-//				
-//		}
 	
 
 	// POST: add a new BioData 

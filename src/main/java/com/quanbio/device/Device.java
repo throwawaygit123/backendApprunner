@@ -44,22 +44,7 @@ public class Device {
 	@OneToMany(mappedBy = "device")
 	private List<RawData> rawData;
 	
-// This case if fore bidirectional mapping 	
-// it works with the first bloc in RawData mentioned as (**)
-//	@OneToMany(mappedBy = "device", cascade = CascadeType.ALL, orphanRemoval = true)
-//  private List<RawData> rawData;
-	
-	// I want to test without MappedBy to see if the relation table is created 
-//		@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//		private List<RawData> rawData;
-	
-	// What I am using NOW: Unidirectionnel 
-//	  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "device_id")
-//    private List<RawData> rawData;
-	
-//	@OneToMany(mappedBy = "device")
-//	private List<RawData> rawData;
+
 	
 	
 	
