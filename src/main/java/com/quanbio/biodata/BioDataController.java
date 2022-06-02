@@ -42,8 +42,6 @@ public class BioDataController {
 		return this.biodataRepository.findById(biodataId)
 			.orElseThrow(() -> new RecordNotFoundException("BioData id '" + biodataId + "' does not exist"));
 	}
-	
-	
 
 	// POST: add a new BioData 
 	@PostMapping

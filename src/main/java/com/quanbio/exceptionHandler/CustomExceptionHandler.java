@@ -35,7 +35,7 @@ class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 	
 //// Second wait to handle errors: Message and details (return a JSON structure)
-private String INCORRECT_REQUEST = "INCORRECT_REQUEST";     
+private String INCORRECT_REQUEST = "Error";
   // This solution returns a structure Error 
   @ExceptionHandler(RecordNotFoundException.class)
   public final ResponseEntity<ErrorResponse> handleObjectNotFoundException
