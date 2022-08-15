@@ -17,10 +17,10 @@ public class JwtToken {
      */
     public static String getToken(Map<String,String> map){
         Calendar instance = Calendar.getInstance();
-        instance.add(Calendar.DATE,7);   //默认7天过期
-        // 创建jwt builder
+        instance.add(Calendar.DATE,7);   //It expires in 7 days by default
+        // Create JWT builder
         JWTCreator.Builder builder = JWT.create();
-        // 将map中的payload 放入
+        // Load the payload in the MAP
         map.forEach((k,v)->{
             builder.withClaim(k,v);
         });
@@ -32,7 +32,7 @@ public class JwtToken {
 
     /**
      * verification token
-     * 验证token 合法性
+     * Verifying Token Validity
      * @param token
      */
     public static DecodedJWT verify(String token){

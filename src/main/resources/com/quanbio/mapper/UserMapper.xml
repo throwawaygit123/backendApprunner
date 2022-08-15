@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quanbio.mapper.UserMapper">
+
+    <select id="queryList" resultType="com.quanbio.model.pojo.po.UserPO">
+        SELECT
+            u.username as userName,
+            u.id       as userId,
+            u.email     as email,
+            role.`name` as roleName,
+            menu.id as menuId,
+            menu.`name` as menuName,
+            menu.icon as menuIcon
+        FROM
+            `user` u LEFT JOIN user_role userRole on u.id = userRole.userid
+                     left join role role on role.id = userRole.roleid
+                     left join role_menu roleMenu on userRole.roleid = roleMenu.roleid
+                     left join menu menu on menu.id = roleMenu.menuid
+        where u.email = #{email}
+          and u.`password` = #{password}
+
+    </select>
+</mapper>
