@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +21,9 @@ public class Role {
     private long id;
     private String name;
     private String description;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
     public Long getId() {
         return id;

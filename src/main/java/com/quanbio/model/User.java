@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
+import java.util.List;
 
 
 @Data
@@ -27,6 +27,9 @@ public class User {
     private String familyname ;
     private String gender;
     private String birthday;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Role> Role;
 
     public long getId() {
         return id;
