@@ -6,7 +6,7 @@ import com.quanbio.mapper.LoginRepository;
 import com.quanbio.model.UserLogin;
 import com.quanbio.model.pojo.vo.UserVO;
 import com.quanbio.service.UserService;
-import com.quanbio.util.MyMD5Util;
+//import com.quanbio.util.MyMD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -35,5 +35,8 @@ public class Hospital {
 	
 	@OneToMany(mappedBy = "hospital")
 	private List<Doctor> doctors;
+	
+	@OneToMany(mappedBy="hospital")
+	private List<Device> device; 
 
 }

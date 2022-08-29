@@ -2,12 +2,13 @@ package com.quanbio.model;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Column;
+//import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,36 +34,33 @@ public class Patient {
 @GenericGenerator(name = "native", strategy = "native")
 private long id; 
 
-@Column(name ="family_name")
-private String familyName;
-
-@Column(name ="first_name")
+// This part should be removed after Extends Added
 private String firstName;
-
-@Column(name ="middle_name")
 private String middleName;
-
-@Column(name ="occupation")
-private String occupation; 
-
-@Column(name ="gender")
+private String familyName ;
+private String email;
+private String password;
 private String gender;
+private Date dataBirth;
 
-@Column(name ="race")
+// Specific to patient 
+private String occupation; 
 private String race;
 
-@Column(name ="date_birth")
-private Date dataBirth; 
+// BioData
+private String bio_type; 
+private double bio_kg;
+private double bio_meters; 
+private String bio_ft;
+private double bio_lb; 
+
+
 
 // Used in case on a bidirectional relation between Patient and MedicalHistory 
 // Can comment this part in case of unidirectional relation 
 @OneToOne(mappedBy = "patient")
 private MedicalHistory medicalHistory;
 
-//Used in case on a bidirectional relation between Patient and BioData 
-//Can comment this part in case of unidirectional relation 
-@OneToOne(mappedBy = "patient")
-private BioData biodata;
 
 // This means that the owning side of this relation is DOCTOR 
 // Insert works from doctor side
@@ -72,8 +70,8 @@ private List<Doctor> doctor;
 
 //Used in case on a bidirectional relation between Patient and RawData 
 //Can comment this part in case of unidirectional relation 
-@OneToOne(mappedBy = "patient")
-private RawData rawdata; 
+@OneToMany(mappedBy = "patient")
+private List<RawData> rawdata; 
 
 
  

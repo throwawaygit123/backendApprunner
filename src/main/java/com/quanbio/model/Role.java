@@ -22,8 +22,11 @@ public class Role {
     private String name;
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
+    @OneToMany(mappedBy = "role")
+    private List<User> user;
+    
+    @ManyToMany
+    private List<Menu> menu; 
 
     public Long getId() {
         return id;
