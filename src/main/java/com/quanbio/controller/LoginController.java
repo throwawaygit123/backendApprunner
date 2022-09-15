@@ -3,18 +3,17 @@ package com.quanbio.controller;
 
 import com.quanbio.jwttoken.JwtToken;
 import com.quanbio.mapper.LoginRepository;
+import com.quanbio.mapper.UserRepository;
+import com.quanbio.model.User;
 import com.quanbio.model.UserLogin;
+import com.quanbio.model.pojo.po.UserPO;
 import com.quanbio.model.pojo.vo.UserVO;
 import com.quanbio.service.UserService;
 //import com.quanbio.util.MyMD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @CrossOrigin
 @RestController
@@ -23,6 +22,9 @@ public class LoginController {
 
     @Autowired
     private LoginRepository loginRepository  ;
+
+    @Autowired
+    private UserRepository userRepository  ;
 
     @Autowired
     private UserService userService ;
@@ -38,25 +40,12 @@ public class LoginController {
         return this.loginRepository.save(login);
     }
 
-//    @PostMapping("/login")
-//    public UserLogin login(@RequestBody UserLogin login) {
-//
-//        UserLogin user =this.loginRepository.findByEmailAndPassword(login.getEmail(),login.getPassword())
-//                .orElseThrow(() -> new RecordNotFoundException("Email and Password do not match ! "));
-//
-//            return user;
-//
-//    }
 
     @GetMapping("/user")
     public Map<String,Object> login(String email, String password) {
         Map<String,Object> map = new HashMap<String,Object>();
         try {
             UserVO userVO = userService.queryUser(email,password);
-//            UserLogin login =loginRepository.findByEmailAndPassword(user.getEmail(),user.getPassword());
-//            UserLogin login1 = new UserLogin();
-//            login1.setEmail(login.getEmail());
-//            login1.setId(login.getId());
             Map<String,String> payload = new HashMap<>();
             payload.put("id",userVO.getUserId()+"");
             payload.put("email",userVO.getEmail());
@@ -71,6 +60,28 @@ public class LoginController {
         }
         return map;
 
+    }
+
+    @GetMapping("/userone")
+    public Optional<User> queryUserone(Long id){
+        return userRepository.findById(id);
+    }
+
+
+    @GetMapping("/userRole")
+    public  List<UserPO> queryUserAndRole(@RequestParam("page") Long page,@RequestParam("pageSize")Long pageSize) {
+        List<UserPO> list= userService.queryUserAndRole(page,pageSize);
+        return list;
+    }
+
+    @DeleteMapping("/delete")
+    public void DeleteUserAndRole(long id){
+        userService.removeById(id);
+    }
+
+    @PostMapping("/add")
+    public void AddUser(User user){
+        userService.save(user);
     }
 
 }

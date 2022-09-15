@@ -12,12 +12,37 @@
             menu.`name` as menuName,
             menu.icon as menuIcon
         FROM
-            `user` u LEFT JOIN user_role userRole on u.id = userRole.userid
-                     left join role role on role.id = userRole.roleid
-                     left join role_menu roleMenu on userRole.roleid = roleMenu.roleid
+            `user` u
+                     left join role role on role.id = u.roleid
+                     left join role_menu roleMenu on u.roleid = roleMenu.roleid
                      left join menu menu on menu.id = roleMenu.menuid
         where u.email = #{email}
           and u.`password` = #{password}
 
     </select>
+
+    <select id="queryUserAndRole" resultType="com.quanbio.model.pojo.po.UserPO">
+        SELECT
+            u.id as userId,
+            role.Name      as roleName
+        FROM
+            user u LEFT JOIN user_role userRole on u.id = userRole.userid
+                   left join role role on role.id = us  erRole.roleid
+        limit #{page},#{pageSize}
+
+    </select>
+    <select id="queryUserRoleOne" resultType="com.quanbio.model.pojo.vo.UserVO">
+        SELECT
+            u.id AS userId,
+            role.NAME AS roleName
+        FROM
+            user u
+                LEFT JOIN role role ON role.id = u.roleid
+        WHERE u.id = #{userId}
+
+    </select>
+
+    <delete id="delete">
+        delete from user where id=#{id}
+    </delete>
 </mapper>
