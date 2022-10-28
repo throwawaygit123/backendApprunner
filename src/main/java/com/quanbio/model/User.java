@@ -16,10 +16,10 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 public class User {
-	@Id	
-	@GeneratedValue(strategy= GenerationType.AUTO, generator="native")
-	@GenericGenerator(name = "native", strategy = "native")
-	private long id; 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private long id;
 
     private String firstname;
     private String middleName;
@@ -29,10 +29,9 @@ public class User {
     private String gender;
     // Should b date 
     private String birthday;
- 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+//    @ManyToOne
+//    @JoinColumn(name = "roleid")
+//    private Role role;
 
    
 }

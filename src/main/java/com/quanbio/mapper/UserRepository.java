@@ -3,8 +3,8 @@ package com.quanbio.mapper;
 import cn.hutool.json.JSONArray;
 import com.quanbio.model.User;
 import com.quanbio.model.pojo.po.UserPO;
-import com.quanbio.model.pojo.vo.UserVO;
-import com.quanbio.structure.UserRolePermission;
+//import com.quanbio.model.pojo.vo.UserVO;
+//import com.quanbio.structure.UserRolePermission;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,9 @@ public interface UserRepository  extends JpaRepository<User, Long> {
 	 //public Optional<UserRolePermission> function(User user);
 	// Query 
 	// SELECT quanbiodb_dev.menu.*  FROM quanbiodb_dev.menu JOIN quanbiodb_dev.role_menu on role_menu.role_id=user.getRoleID() where role_menu.menu_id=menu.id;
-
+     /**
+      * Query the identity information by email and password
+      */
      @Query(value = "SELECT u.username AS userName,u.id AS userId,u.email AS email,role.name AS roleName,menu.id AS menuId,menu.name AS menuName,menu.icon AS menuIcon from " +
              " user  u " +
              "left join role role on role.id = u.roleid left join role_menu roleMenu on u.roleid = roleMenu.roleid left join menu menu on menu.id = roleMenu.menuid "
@@ -33,6 +35,9 @@ public interface UserRepository  extends JpaRepository<User, Long> {
      List<Map<String,String>> findByEmailAndPassword(@Param("email")String email, @Param("password")String password);
 
 
+     /**
+      * Query the identity information by id
+      */
      @Query(value = "SELECT u.username AS userName,u.id AS userId,u.email AS email,role.name AS roleName,u.roleid from " +
              " user  u " +
              "left join role role on role.id = u.roleid "

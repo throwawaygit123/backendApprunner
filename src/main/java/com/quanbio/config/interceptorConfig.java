@@ -10,6 +10,6 @@ public class interceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new JWTIntercept())
                 .addPathPatterns("/**")   //拦截所有的路径
-                .excludePathPatterns("/api/userlogin/**"); //放行login目录下的,因为生成token的方法拦截就无法生成token了
+                .excludePathPatterns("/api/userlogin/user"); //放行login目录下的,因为生成token的方法拦截就无法生成token了
     }
 }

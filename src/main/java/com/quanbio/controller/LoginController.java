@@ -6,9 +6,9 @@ import com.quanbio.mapper.LoginRepository;
 import com.quanbio.mapper.UserRepository;
 import com.quanbio.model.User;
 import com.quanbio.model.UserLogin;
-import com.quanbio.model.pojo.po.UserPO;
-import com.quanbio.model.pojo.vo.UserVO;
-import com.quanbio.service.UserService;
+//import com.quanbio.model.pojo.po.UserPO;
+//import com.quanbio.model.pojo.vo.UserVO;
+//import com.quanbio.service.UserService;
 //import com.quanbio.util.MyMD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +23,11 @@ public class LoginController {
     @Autowired
     private LoginRepository loginRepository  ;
 
-    @Autowired
-    private UserRepository userRepository  ;
-
-    @Autowired
-    private UserService userService ;
+//    @Autowired
+//    private UserRepository userRepository  ;
+//
+//    @Autowired
+//    private UserService userService ;
 
 
     @GetMapping
@@ -41,47 +41,66 @@ public class LoginController {
     }
 
 
-    @GetMapping("/user")
-    public Map<String,Object> login(String email, String password) {
+//    @GetMapping("/user")
+//    public Map<String,Object> login(String email, String password) {
+//        Map<String,Object> map = new HashMap<String,Object>();
+//        try {
+//            UserVO userVO = userService.queryUser(email,password);
+//            Map<String,String> payload = new HashMap<>();
+//            payload.put("id",userVO.getUserId()+"");
+//            payload.put("email",userVO.getEmail());
+//            String token = JwtToken.getToken(payload);
+//            map.put("state",true);
+//            map.put("msg","Authentication success");
+//            map.put("token",token);
+//            map.put("data",userVO);
+//        }catch (Exception e){
+//            map.put("state",false);
+//            map.put("msg",e.toString());
+//        }
+//        return map;
+//
+//    }
+
+    @PostMapping("/user")
+    public Map<String,Object> login(@RequestBody UserLogin user){
         Map<String,Object> map = new HashMap<String,Object>();
         try {
-            UserVO userVO = userService.queryUser(email,password);
+            UserLogin login =loginRepository.findByEmailAndPassword(user.getEmail(),user.getPassword());
             Map<String,String> payload = new HashMap<>();
-            payload.put("id",userVO.getUserId()+"");
-            payload.put("email",userVO.getEmail());
+            payload.put("id",login.getId()+"");
+            payload.put("email",login.getEmail());
             String token = JwtToken.getToken(payload);
             map.put("state",true);
             map.put("msg","Authentication success");
             map.put("token",token);
-            map.put("data",userVO);
         }catch (Exception e){
             map.put("state",false);
             map.put("msg",e.toString());
         }
         return map;
+            }
 
-    }
-
-    @GetMapping("/userone")
-    public Optional<User> queryUserone(Long id){
-        return userRepository.findById(id);
-    }
-
-
-    @GetMapping("/userRole")
-    public  List<UserPO> queryUserAndRole(@RequestParam("page") Long page,@RequestParam("pageSize")Long pageSize) {
-        List<UserPO> list= userService.queryUserAndRole(page,pageSize);
-        return list;
-    }
-
-    @DeleteMapping("/delete")
-    public void DeleteUserAndRole(long id){
-        userService.removeById(id);
-    }
-
-    @PostMapping("/add")
-    public void AddUser(User user){
-        userService.save(user);
-    }
+//    @GetMapping("/userone")
+//    public Optional<User> queryUserone(Long id){
+//        return userRepository.findById(id);
+//    }
+//
+//
+//    @GetMapping("/userRole")
+//    public  List<UserPO> queryUserAndRole(@RequestParam("page") Long page,@RequestParam("pageSize")Long pageSize) {
+//        List<UserPO> list= userService.queryUserAndRole(page,pageSize);
+//        return list;
+//    }
+//
+//    @DeleteMapping("/delete")
+//    public void DeleteUserAndRole(long id){
+//        userService.removeById(id);
+//    }
+//
+//    @PostMapping("/add")
+//    public void AddUser(User user){
+//        userService.save(user);
+//    }
 
 }
