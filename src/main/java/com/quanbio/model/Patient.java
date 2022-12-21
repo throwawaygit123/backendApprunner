@@ -5,7 +5,7 @@ import java.util.List;
 //import javax.persistence.Column;
 import javax.persistence.*;
 
-import com.sun.istack.internal.Interned;
+//import com.sun.istack.internal.Interned;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
